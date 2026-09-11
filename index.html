@@ -1,23 +1,627 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>PHOS | High-Performance Computing & Enterprise Warehousing</title>
-    <meta name="description" content="PHOS delivers extreme enthusiast custom PC battle-stations, AI workstation clusters, and enterprise hardware warehousing with 24-hour B2B fulfillment." />
-    
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700;800&family=Outfit:wght@300;400;500;600;700;800;900&family=Syne:wght@700;800&display=swap" rel="stylesheet">
-    
-    <!-- FontAwesome for hardware icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='35' stroke='%23ff1e38' stroke-width='8' fill='none'/><line x1='50' y1='5' x2='50' y2='95' stroke='%23ff1e38' stroke-width='9' stroke-linecap='round'/></svg>" />
-  </head>
-  <body class="bg-[#070709] text-[#f0f2f5] overflow-x-hidden selection:bg-[#ff1e38] selection:text-white">
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
-  </body>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PHOS | High-Performance Hardware & Enterprise Warehousing</title>
+  <meta name="description" content="PHOS delivers extreme custom PC battle-stations, AI deep learning clusters, and 50,000 sq ft industrial hardware warehousing.">
+
+  <!-- Google Fonts: Outfit, JetBrains Mono, Syne -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700;800&family=Outfit:wght@300;400;500;600;700;800;900&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+
+  <!-- FontAwesome Icons (CDN) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <!-- Standalone Stylesheet -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Ambient background canvas -->
+  <div class="glow-blob glow-1"></div>
+  <div class="glow-blob glow-2"></div>
+  <canvas id="cyber-canvas"></canvas>
+
+  <!-- Sticky Top Header Navigation -->
+  <header class="top-header">
+    <div class="container header-flex">
+      
+      <!-- Brand Logo Left (Mini) -->
+      <div class="header-logo-wrap" onclick="scrollToPage('page-1')">
+        <svg viewBox="0 0 240 60" style="height: 28px; width: auto;" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 48V12H32C41.94 12 50 18.06 50 26.5C50 34.94 41.94 41 32 41H23V48H12ZM23 32H31C36 32 39 29.5 39 26.5C39 23.5 36 21 31 21H23V32Z" fill="#FFFFFF"/>
+          <path d="M64 48V12H75V25.5H97V12H108V48H97V34.5H75V48H64Z" fill="#FFFFFF"/>
+          <g>
+            <circle cx="146" cy="30" r="18" stroke="#ffffff" stroke-width="6" fill="none" />
+            <line x1="146" y1="2" x2="146" y2="58" stroke="#ff1e38" stroke-width="6" stroke-linecap="square" class="laser-line"/>
+          </g>
+          <path d="M188 43.5C191.5 46.5 197.5 48.5 204.5 48.5C216 48.5 223 43 223 35C223 25.5 212.5 23 203 21C194.5 19.5 190.5 18 190.5 14.5C190.5 11.5 194.5 9.5 200 9.5C205 9.5 209.5 11 213 13.5L217.5 6C213 3 206.5 1.5 199.5 1.5C188 1.5 179.5 7.5 179.5 16C179.5 25 189.5 27.5 199 29.5C208.5 31.5 212 33 212 37C212 40.5 207.5 41.5 203 41.5C197.5 41.5 191.5 39 187 35.5L188 43.5Z" fill="#FFFFFF"/>
+        </svg>
+      </div>
+
+      <!-- Centered 3-Page Navigation Tabs -->
+      <nav class="nav-tabs">
+        <button class="nav-tab-btn active" id="tab-p1" onclick="scrollToPage('page-1')">01 // SERVICES</button>
+        <button class="nav-tab-btn" id="tab-p2" onclick="scrollToPage('page-2')">02 // OUR TOP PCS (5)</button>
+        <button class="nav-tab-btn" id="tab-p3" onclick="scrollToPage('page-3')">03 // ENQUIRY & BUILD</button>
+      </nav>
+
+      <!-- Right Header Actions -->
+      <div class="header-actions">
+        <button class="sfx-btn" id="sfx-toggle-btn" onclick="toggleAudioEngine()">
+          <i class="fa-solid fa-volume-xmark" id="sfx-icon"></i>
+          <span id="sfx-text">SFX: OFF</span>
+        </button>
+        <button class="btn-cyber" style="padding: 8px 18px; font-size: 0.78rem;" onclick="scrollToPage('page-3')">
+          <span>BUILD YOUR PC</span>
+          <i class="fa-solid fa-arrow-right"></i>
+        </button>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- ==========================================================================
+       1ST PAGE: TOP CENTER LOGO & 9 SERVICES
+       ========================================================================== -->
+  <section class="page-section" id="page-1">
+    <div class="container">
+      
+      <!-- Top Center Logo -->
+      <div class="hero-center">
+        <div class="logo-hero-wrap" onclick="scrollToPage('page-1')">
+          <!-- Real Logo Image with Instant Fallback SVG -->
+          <img src="phos_logo.jpeg" alt="PHOS COMPUTERS" class="logo-hero-img" onerror="this.style.display='none'; document.getElementById('hero-svg-logo').style.display='block';">
+          
+          <svg id="hero-svg-logo" viewBox="0 0 240 60" style="height: 64px; width: auto; display: none;" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 48V12H32C41.94 12 50 18.06 50 26.5C50 34.94 41.94 41 32 41H23V48H12ZM23 32H31C36 32 39 29.5 39 26.5C39 23.5 36 21 31 21H23V32Z" fill="#FFFFFF"/>
+            <path d="M64 48V12H75V25.5H97V12H108V48H97V34.5H75V48H64Z" fill="#FFFFFF"/>
+            <g>
+              <circle cx="146" cy="30" r="18" stroke="#ffffff" stroke-width="6" fill="none" />
+              <line x1="146" y1="2" x2="146" y2="58" stroke="#ff1e38" stroke-width="6" stroke-linecap="square" class="laser-line"/>
+            </g>
+            <path d="M188 43.5C191.5 46.5 197.5 48.5 204.5 48.5C216 48.5 223 43 223 35C223 25.5 212.5 23 203 21C194.5 19.5 190.5 18 190.5 14.5C190.5 11.5 194.5 9.5 200 9.5C205 9.5 209.5 11 213 13.5L217.5 6C213 3 206.5 1.5 199.5 1.5C188 1.5 179.5 7.5 179.5 16C179.5 25 189.5 27.5 199 29.5C208.5 31.5 212 33 212 37C212 40.5 207.5 41.5 203 41.5C197.5 41.5 191.5 39 187 35.5L188 43.5Z" fill="#FFFFFF"/>
+          </svg>
+
+          <span class="hero-subtag">HIGH-PERFORMANCE HARDWARE & WAREHOUSING</span>
+        </div>
+
+        <div class="hero-badge-pill">
+          <i class="fa-solid fa-microchip"></i>
+          <span>CUSTOM ENTHUSIAST RIGS • BULK FLEETS • 50,000 SQ FT WAREHOUSING</span>
+        </div>
+      </div>
+
+      <!-- Services Heading -->
+      <div class="services-heading-wrap">
+        <h1 class="section-title">
+          OUR CORE <span class="text-red-glow">SERVICES</span>
+        </h1>
+        <p class="section-subtitle">
+          Engineered computing capabilities designed for competitive gamers, deep-learning researchers, and enterprise studio procurement.
+        </p>
+      </div>
+
+      <!-- 9 SERVICES GRID -->
+      <div class="services-grid">
+        
+        <!-- 1. CONSULT & GUIDE -->
+        <div class="glass-card service-card">
+          <div>
+            <div class="service-header">
+              <div class="service-icon-box"><i class="fa-solid fa-compass"></i></div>
+              <span class="service-num">01</span>
+            </div>
+            <h3 class="service-title">CONSULT & GUIDE</h3>
+            <div class="service-tagline">Architecture Sizing & Thermal Planning</div>
+            <p class="service-desc">Direct technical consultation with senior hardware architects to eliminate bottlenecking, plan thermal dissipation, and optimize budget.</p>
+          </div>
+          <div class="service-footer">
+            <span>ENGINEERING PROTOCOL</span>
+            <span class="text-red">PHOS CERTIFIED</span>
+          </div>
+        </div>
+
+        <!-- 2. SOURCE WITH BEST PRICES -->
+        <div class="glass-card service-card">
+          <div>
+            <div class="service-header">
+              <div class="service-icon-box"><i class="fa-solid fa-tags"></i></div>
+              <span class="service-num">02</span>
+            </div>
+            <h3 class="service-title">SOURCE WITH BEST PRICES</h3>
+            <div class="service-tagline">Tier-1 Direct OEM Factory Allocations</div>
+            <p class="service-desc">Direct contracts with NVIDIA, AMD, Intel, and ASUS ensure factory-sealed authentic components with guaranteed volume wholesale pricing.</p>
+          </div>
+          <div class="service-footer">
+            <span>DIRECT OEM CONTRACTS</span>
+            <span class="text-red">WHOLESALE PRICING</span>
+          </div>
+        </div>
+
+        <!-- 3. PARTS DELIVERY & DIY SUPPORT -->
+        <div class="glass-card service-card">
+          <div>
+            <div class="service-header">
+              <div class="service-icon-box"><i class="fa-solid fa-truck-ramp-box"></i></div>
+              <span class="service-num">03</span>
+            </div>
+            <h3 class="service-title">PARTS DELIVERY & DIY SUPPORT</h3>
+            <div class="service-tagline">Class-1000 ESD Packaging & Remote Guidance</div>
+            <p class="service-desc">Assembling yourself? We crate static-safe hardware with laser-cut cables, thermal paste, and provide live video technician build support.</p>
+          </div>
+          <div class="service-footer">
+            <span>ESD-SAFE FREIGHT</span>
+            <span class="text-red">VIDEO DIY DESK</span>
+          </div>
+        </div>
+
+        <!-- 4. COMPLETE BUILD & DELIVERY -->
+        <div class="glass-card service-card">
+          <div>
+            <div class="service-header">
+              <div class="service-icon-box"><i class="fa-solid fa-screwdriver-wrench"></i></div>
+              <span class="service-num">04</span>
+            </div>
+            <h3 class="service-title">COMPLETE BUILD & DELIVERY</h3>
+            <div class="service-tagline">Handcrafted Precision Turnkey Rigs</div>
+            <p class="service-desc">Hardline liquid loops, custom cable-combing, BIOS profiling, and 72-hour thermal stress validation delivered crated and ready to deploy.</p>
+          </div>
+          <div class="service-footer">
+            <span>72-HR STRESS TEST</span>
+            <span class="text-red">TURNKEY READY</span>
+          </div>
+        </div>
+
+        <!-- 5. ACCESSORIES & MORE -->
+        <div class="glass-card service-card">
+          <div>
+            <div class="service-header">
+              <div class="service-icon-box"><i class="fa-solid fa-headphones"></i></div>
+              <span class="service-num">05</span>
+            </div>
+            <h3 class="service-title">ACCESSORIES & MORE</h3>
+            <div class="service-tagline">540Hz Monitors, Sleeved Cables & Peripherals</div>
+            <p class="service-desc">Curated ultra-fast QD-OLED displays, studio DACs, mechanical keyboards, custom water-blocks, and premium sleeved wiring harnesses.</p>
+          </div>
+          <div class="service-footer">
+            <span>TOURNAMENT GRADE</span>
+            <span class="text-red">STUDIO ECOSYSTEM</span>
+          </div>
+        </div>
+
+        <!-- 6. LIFETIME SUPPORT -->
+        <div class="glass-card service-card">
+          <div>
+            <div class="service-header">
+              <div class="service-icon-box"><i class="fa-solid fa-life-ring"></i></div>
+              <span class="service-num">06</span>
+            </div>
+            <h3 class="service-title">LIFETIME SUPPORT</h3>
+            <div class="service-tagline">Priority Hotline & Zero-Downtime RMA</div>
+            <p class="service-desc">24/7 dedicated technician hotline, priority advance replacement on failing components, and free lifetime labor on future upgrades.</p>
+          </div>
+          <div class="service-footer">
+            <span>ZERO DOWNTIME GUARANTEE</span>
+            <span class="text-red">24/7 HOTLINE</span>
+          </div>
+        </div>
+
+        <!-- 7. BULK PRE-BUILT PCS -->
+        <div class="glass-card service-card">
+          <div>
+            <div class="service-header">
+              <div class="service-icon-box"><i class="fa-solid fa-boxes-stacked"></i></div>
+              <span class="service-num">07</span>
+            </div>
+            <h3 class="service-title">BULK PRE-BUILT PCS</h3>
+            <div class="service-tagline">Standardized Fleets for Studios & Labs</div>
+            <p class="service-desc">Volume pallet orders for game studios, render farms, and AI labs. Pre-flashed with your golden OS image and serialized asset tags.</p>
+          </div>
+          <div class="service-footer">
+            <span>PALLET FULFILLMENT</span>
+            <span class="text-red">ISO STANDARDIZED</span>
+          </div>
+        </div>
+
+        <!-- 8. BULK LAPTOPS -->
+        <div class="glass-card service-card">
+          <div>
+            <div class="service-header">
+              <div class="service-icon-box"><i class="fa-solid fa-laptop-code"></i></div>
+              <span class="service-num">08</span>
+            </div>
+            <h3 class="service-title">BULK LAPTOPS</h3>
+            <div class="service-tagline">Corporate & University Workforce Deployments</div>
+            <p class="service-desc">Enterprise allocations of RTX workstation laptops for mobile engineering teams and educational departments with bulk tier discounts.</p>
+          </div>
+          <div class="service-footer">
+            <span>ENTERPRISE FLEET</span>
+            <span class="text-red">VOLUME PRICING</span>
+          </div>
+        </div>
+
+        <!-- 9. RETAIL LAPTOPS -->
+        <div class="glass-card service-card">
+          <div>
+            <div class="service-header">
+              <div class="service-icon-box"><i class="fa-solid fa-laptop"></i></div>
+              <span class="service-num">09</span>
+            </div>
+            <h3 class="service-title">RETAIL LAPTOPS</h3>
+            <div class="service-tagline">Flagship Mobile Gaming & Creator Workstations</div>
+            <p class="service-desc">Hand-picked top-tier models with 240Hz 4K Mini-LED panels, liquid-metal vapor cooling, and full 175W GeForce RTX 40-Series power.</p>
+          </div>
+          <div class="service-footer">
+            <span>240HZ MINI-LED</span>
+            <span class="text-red">DESKTOP POWER</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Page 1 Bottom CTA -->
+      <div class="page-nav-cta">
+        <button class="btn-cyber" onclick="scrollToPage('page-2')">
+          <span>DISCOVER OUR TOP PCS (GAMING + AI)</span>
+          <i class="fa-solid fa-arrow-down"></i>
+        </button>
+        <span style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--text-dark);">
+          PAGE 01 / 03 • PROCEED TO FEATURED SILICON FLEET
+        </span>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       2ND PAGE: OUR TOP PCS (5 PCS: GAMING + AI)
+       ========================================================================== -->
+  <section class="page-section" id="page-2">
+    <div class="container">
+      
+      <div class="top-pcs-header">
+        <div>
+          <div class="hero-badge-pill" style="margin-top: 0; margin-bottom: 10px;">
+            <i class="fa-solid fa-microchip"></i>
+            <span>FLAGSHIP COMPUTING NODES</span>
+          </div>
+          <h2 class="section-title">
+            OUR TOP <span class="text-red-glow">PCS</span> (5 ELITE RIGS)
+          </h2>
+          <p class="section-subtitle" style="margin: 0;">
+            5 hand-built, bench-tested masterworks engineered specifically for 4K/8K Gaming and AI Deep Learning.
+          </p>
+        </div>
+
+        <div class="filter-btn-group">
+          <button class="filter-btn active" id="f-all" onclick="filterPcs('ALL')">ALL 5 PCS</button>
+          <button class="filter-btn" id="f-gaming" onclick="filterPcs('GAMING')">GAMING TITANS</button>
+          <button class="filter-btn" id="f-ai" onclick="filterPcs('AI')">AI WORKSTATIONS</button>
+        </div>
+      </div>
+
+      <!-- 5 PCS GRID -->
+      <div class="pcs-grid" id="pcs-container">
+        <!-- Rendered dynamically via JS -->
+      </div>
+
+      <!-- Page 2 Bottom CTA -->
+      <div class="page-nav-cta">
+        <button class="btn-cyber" onclick="scrollToPage('page-3')">
+          <span>PROCEED TO ENQUIRY & BUILD YOUR PC</span>
+          <i class="fa-solid fa-arrow-down"></i>
+        </button>
+        <span style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--text-dark);">
+          PAGE 02 / 03 • NEXT: DIRECT MAIL & GOOGLE FORM BUILDER
+        </span>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       3RD PAGE: ENQUIRY (LEFT: MAIL, RIGHT: BUILD YOUR PC -> GOOGLE FORMS)
+       ========================================================================== -->
+  <section class="page-section" id="page-3">
+    <div class="container">
+      
+      <div class="services-heading-wrap" style="margin-bottom: 40px;">
+        <div class="hero-badge-pill" style="margin-top: 0; margin-bottom: 12px;">
+          <i class="fa-solid fa-paper-plane"></i>
+          <span>COMMUNICATION & INTAKE PORTAL</span>
+        </div>
+        <h2 class="section-title">
+          ENQUIRY & <span class="text-red-glow">BUILD YOUR PC</span>
+        </h2>
+        <p class="section-subtitle">
+          Connect directly with our engineering team via mail or launch our custom PC configuration Google Form.
+        </p>
+      </div>
+
+      <!-- 2-Column Split: Left Mail, Right Build PC -->
+      <div class="enquiry-grid">
+        
+        <!-- LEFT SIDE: MAIL & OPERATIONS -->
+        <div class="glass-card enquiry-col">
+          <div>
+            <div style="font-family: var(--font-mono); font-size: 0.72rem; font-weight: 700; color: var(--red-primary); letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 6px;">
+              PAGE 03 // CONTACT HUB
+            </div>
+            <h3 style="font-size: 1.7rem; font-weight: 800; color: #fff; text-transform: uppercase; margin-bottom: 14px;">
+              DIRECT MAIL & OPERATIONS
+            </h3>
+            <p style="font-size: 0.88rem; color: var(--text-muted); line-height: 1.6; margin-bottom: 24px; font-weight: 300;">
+              Need a rapid quote for an individual custom battlestation or warehouse pallet allocations for an enterprise studio? Our founders review all submissions within 2 hours.
+            </p>
+
+            <!-- Contact Item 1: Founder Mail -->
+            <div class="contact-item-box">
+              <div class="contact-info-left">
+                <div class="contact-icon"><i class="fa-solid fa-envelope"></i></div>
+                <div>
+                  <span class="contact-title">PRIMARY FOUNDER & SALES MAIL</span>
+                  <a href="mailto:sudhan@phos-hardware.com?subject=PHOS%20PC%20Hardware%20Enquiry" class="contact-link">
+                    sudhan@phos-hardware.com
+                  </a>
+                </div>
+              </div>
+              <button class="copy-icon-btn" onclick="copyText('sudhan@phos-hardware.com', 'Copied founder email!')" title="Copy Email">
+                <i class="fa-regular fa-copy"></i>
+              </button>
+            </div>
+
+            <!-- Contact Item 2: Enterprise Logistics Mail -->
+            <div class="contact-item-box">
+              <div class="contact-info-left">
+                <div class="contact-icon" style="background: rgba(255,255,255,0.05); color: #fff;"><i class="fa-solid fa-building"></i></div>
+                <div>
+                  <span class="contact-title">ENTERPRISE LOGISTICS & B2B DISPATCH</span>
+                  <a href="mailto:enterprise@phos-hardware.com?subject=B2B%20Warehousing%20Allocation" class="contact-link">
+                    enterprise@phos-hardware.com
+                  </a>
+                </div>
+              </div>
+              <button class="copy-icon-btn" onclick="copyText('enterprise@phos-hardware.com', 'Copied enterprise email!')" title="Copy Email">
+                <i class="fa-regular fa-copy"></i>
+              </button>
+            </div>
+
+            <!-- Hotline & Facility Row -->
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 14px; font-family: var(--font-mono); font-size: 0.75rem;">
+              <div style="background: #090b11; border: 1px solid var(--border-subtle); border-radius: 10px; padding: 12px; display: flex; align-items: center; gap: 10px;">
+                <i class="fa-solid fa-phone text-red" style="font-size: 1rem;"></i>
+                <div>
+                  <span style="color: var(--text-dark); display: block; font-size: 0.65rem;">DIRECT HOTLINE</span>
+                  <strong style="color: #fff;">+1 (800) 840-PHOS</strong>
+                </div>
+              </div>
+
+              <div style="background: #090b11; border: 1px solid var(--border-subtle); border-radius: 10px; padding: 12px; display: flex; align-items: center; gap: 10px;">
+                <i class="fa-solid fa-warehouse text-red" style="font-size: 1rem;"></i>
+                <div>
+                  <span style="color: var(--text-dark); display: block; font-size: 0.65rem;">WAREHOUSE HUB</span>
+                  <strong style="color: #fff;">50,000 Sq Ft ESD</strong>
+                </div>
+              </div>
+            </div>
+
+            <!-- Quick Direct Message Form -->
+            <div style="margin-top: 24px; padding-top: 20px; border-top: 1px solid var(--border-subtle);">
+              <span style="font-family: var(--font-mono); font-size: 0.72rem; font-weight: 700; color: #fff; letter-spacing: 1px; text-transform: uppercase; display: block; margin-bottom: 12px;">
+                DISPATCH QUICK ENQUIRY TRANSMISSION
+              </span>
+
+              <form onsubmit="handleDirectMessageSubmit(event)">
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                  <input type="text" id="enq-name" class="form-input" placeholder="Your Name *" required>
+                  <input type="email" id="enq-email" class="form-input" placeholder="Your Email *" required>
+                </div>
+                <input type="text" id="enq-subject" class="form-input" placeholder="Subject / Target Machine">
+                <textarea id="enq-message" class="form-input" rows="3" placeholder="Detail your project requirements, budget, delivery timeline..." required></textarea>
+                <button type="submit" class="btn-cyber" style="width: 100%; padding: 12px;">
+                  <i class="fa-solid fa-paper-plane"></i>
+                  <span>SEND DIRECT ENQUIRY MAIL</span>
+                </button>
+              </form>
+            </div>
+
+          </div>
+
+          <div style="margin-top: 20px; padding-top: 12px; border-top: 1px solid var(--border-subtle); display: flex; justify-content: space-between; font-family: var(--font-mono); font-size: 0.7rem; color: var(--text-dark);">
+            <span><i class="fa-solid fa-lock"></i> NDA PROTECTED</span>
+            <span>SLA RESPONSE &lt; 2 HOURS</span>
+          </div>
+        </div>
+
+        <!-- RIGHT SIDE: BUILD YOUR PC (LINKS GOOGLE FORMS) -->
+        <div class="glass-card enquiry-col" style="border-color: rgba(255, 30, 56, 0.4); background: radial-gradient(circle at 80% 20%, rgba(255, 30, 56, 0.12) 0%, rgba(13, 14, 20, 0.95) 100%);">
+          <div>
+            <div class="hero-badge-pill" style="margin-top: 0; margin-bottom: 12px; background: rgba(255,30,56,0.2);">
+              <i class="fa-solid fa-bolt"></i>
+              <span>OFFICIAL SPECIFICATION INTAKE</span>
+            </div>
+
+            <h3 style="font-size: 1.9rem; font-weight: 900; color: #fff; text-transform: uppercase; margin-bottom: 10px;">
+              BUILD YOUR <span class="text-red-glow">PC</span>
+            </h3>
+
+            <p style="font-size: 0.88rem; color: var(--text-muted); line-height: 1.6; margin-bottom: 24px; font-weight: 300;">
+              Ready to configure your custom machine or enterprise workload node? Launch our official <strong>Google Form Specification Builder</strong> to select your preferred CPU, GPU, memory array, liquid loop styling, and delivery schedule.
+            </p>
+
+            <!-- Featured Box -->
+            <div class="build-pc-feature">
+              <div style="width: 64px; height: 64px; border-radius: 14px; background: rgba(255, 30, 56, 0.2); border: 1px solid var(--red-primary); display: flex; align-items: center; justify-content: center; color: var(--red-primary); font-size: 1.8rem; margin-bottom: 14px; box-shadow: 0 0 20px rgba(255, 30, 56, 0.3);">
+                <i class="fa-brands fa-google"></i>
+              </div>
+
+              <h4 style="font-size: 1.35rem; font-weight: 800; color: #fff; text-transform: uppercase; margin-bottom: 6px;">
+                CUSTOM PC CONFIGURATION FORM
+              </h4>
+
+              <p style="font-size: 0.82rem; color: var(--text-muted); max-width: 380px; font-weight: 300; line-height: 1.5;">
+                Specify your component preferences, targeted resolution, chassis lighting, and freight delivery timeline.
+              </p>
+
+              <!-- THE OFFICIAL GOOGLE FORM BUTTON -->
+              <a id="google-form-link-btn" href="https://forms.google.com" target="_blank" rel="noopener noreferrer" class="btn-cyber google-form-btn" onclick="playSfx('activate')">
+                <span>OPEN BUILD YOUR PC GOOGLE FORM</span>
+                <i class="fa-solid fa-arrow-up-right-from-square"></i>
+              </a>
+            </div>
+
+            <!-- Customizable Form URL Input (allows friend to change his link on the fly!) -->
+            <div style="background: rgba(0, 0, 0, 0.5); border: 1px solid var(--border-subtle); border-radius: 10px; padding: 14px; font-family: var(--font-mono); font-size: 0.72rem;">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                <span style="color: var(--text-dark); font-weight: 700; text-transform: uppercase;">
+                  CONFIGURED GOOGLE FORM LINK:
+                </span>
+                <button type="button" onclick="toggleEditGoogleForm()" style="background: none; border: none; color: var(--red-primary); cursor: pointer; text-decoration: underline;">
+                  Change Link
+                </button>
+              </div>
+
+              <div id="form-url-display-box" style="background: #0a0c12; padding: 8px 12px; border-radius: 6px; border: 1px solid rgba(255,255,255,0.06); display: flex; justify-content: space-between; align-items: center;">
+                <span id="current-form-url" style="color: #fff; text-overflow: ellipsis; overflow: hidden; white-space: nowrap;">https://forms.google.com</span>
+                <a id="test-form-link" href="https://forms.google.com" target="_blank" style="color: var(--red-primary); margin-left: 10px; font-weight: bold; text-decoration: none;">
+                  TEST <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                </a>
+              </div>
+
+              <div id="form-url-edit-box" style="display: none; margin-top: 8px;">
+                <div style="display: flex; gap: 8px;">
+                  <input type="url" id="custom-form-input" class="form-input" style="margin-bottom: 0; padding: 8px;" placeholder="Paste your Google Forms link here...">
+                  <button type="button" class="btn-cyber" style="padding: 8px 16px; font-size: 0.75rem;" onclick="saveCustomGoogleForm()">
+                    SAVE
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Value checklist -->
+            <div style="margin-top: 20px; display: flex; flex-direction: column; gap: 8px; font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-muted);">
+              <div><i class="fa-solid fa-circle-check text-red"></i> 50,000 sq ft warehouse inventory matching</div>
+              <div><i class="fa-solid fa-circle-check text-red"></i> Formal line-item quotation returned in under 2 hours</div>
+              <div><i class="fa-solid fa-circle-check text-red"></i> 72-Hour Prime95 stress test cert included with every machine</div>
+            </div>
+
+          </div>
+
+          <div style="margin-top: 20px; padding-top: 12px; border-top: 1px solid var(--border-subtle); display: flex; justify-content: space-between; font-family: var(--font-mono); font-size: 0.7rem; color: var(--text-dark);">
+            <span>PHOS DIRECT PROCUREMENT</span>
+            <span class="text-red">100% FACTORY SEALED</span>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       ELABORATED VIEW SPECS MODAL WITH 3 PHOTOS
+       ========================================================================== -->
+  <div class="modal-backdrop-wrap" id="specs-modal">
+    <div class="modal-content-box">
+      
+      <!-- Top Bar -->
+      <div class="modal-top-bar">
+        <div>
+          <span id="modal-pc-badge" style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--red-primary); font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase;">
+            FLAGSHIP SPECIFICATION BREAKDOWN
+          </span>
+          <h3 id="modal-pc-name" style="font-size: 1.5rem; font-weight: 800; color: #fff; margin-top: 2px;">
+            PHOS Machine Name
+          </h3>
+        </div>
+        <button onclick="closeSpecsModal()" style="background: none; border: none; color: var(--text-muted); font-size: 1.6rem; cursor: pointer; line-height: 1;">
+          &times;
+        </button>
+      </div>
+
+      <!-- Scroll Body -->
+      <div class="modal-scroll-body">
+        
+        <!-- 2-3 Photos Gallery -->
+        <div>
+          <div style="display: flex; justify-content: space-between; margin-bottom: 8px; font-family: var(--font-mono); font-size: 0.75rem;">
+            <span style="color: #fff; font-weight: 700;">HARDWARE GALLERY (3 ANGLES)</span>
+            <span style="color: var(--text-dark);">CLICK THUMBNAILS BELOW TO SWITCH ANGLE</span>
+          </div>
+
+          <div class="photo-gallery-main">
+            <img id="modal-main-photo" src="" alt="Hardware Spec Angle">
+            <div class="gallery-caption-overlay">
+              <h4 id="modal-photo-title" style="font-size: 1rem; font-weight: 700; margin-bottom: 2px;">Angle Title</h4>
+              <p id="modal-photo-desc" style="font-size: 0.8rem; color: var(--text-muted); font-weight: 300;">Angle caption</p>
+            </div>
+          </div>
+
+          <!-- Thumbnails -->
+          <div class="thumbnails-row" style="margin-top: 10px;" id="modal-thumbnails-row">
+            <!-- Injected via JS -->
+          </div>
+        </div>
+
+        <!-- Specifications Table -->
+        <div>
+          <span style="font-family: var(--font-mono); font-size: 0.75rem; font-weight: 700; color: #fff; text-transform: uppercase; letter-spacing: 1px; display: block; margin-bottom: 10px;">
+            DETAILED COMPONENT SPECIFICATIONS
+          </span>
+
+          <table class="specs-table" id="modal-specs-table">
+            <!-- Injected via JS -->
+          </table>
+        </div>
+
+        <!-- Certification Note -->
+        <div style="background: var(--red-subtle); border-left: 3px solid var(--red-primary); padding: 12px 16px; border-radius: 6px; font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-main);">
+          <i class="fa-solid fa-certificate text-red"></i> <strong>72-Hour Prime95 Burn-In Certified:</strong> Each machine is stress tested inside our 50,000 sq ft ESD cleanroom facility before crating. Full serial telemetry log included.
+        </div>
+
+      </div>
+
+      <!-- Modal Footer -->
+      <div style="padding: 16px 24px; background: #08090f; border-top: 1px solid var(--border-subtle); display: flex; align-items: center; justify-content: space-between;">
+        <div>
+          <span style="font-family: var(--font-mono); font-size: 0.68rem; color: var(--text-dark); display: block;">CONFIRMED UNIT PRICE:</span>
+          <span id="modal-pc-price" style="font-family: var(--font-mono); font-size: 1.4rem; font-weight: 800; color: var(--red-primary);">$0,000</span>
+        </div>
+
+        <div style="display: flex; gap: 10px;">
+          <button type="button" onclick="closeSpecsModal()" class="filter-btn" style="padding: 10px 18px;">
+            Close
+          </button>
+          <button type="button" class="btn-cyber" onclick="selectCurrentPcForEnquiry()">
+            <span>ENQUIRE THIS PC</span>
+            <i class="fa-solid fa-arrow-right"></i>
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div class="toast-box" id="cyber-toast">
+    <i class="fa-solid fa-circle-check text-red"></i>
+    <span id="toast-text">Notification message</span>
+  </div>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <p style="margin-bottom: 6px;">&copy; 2026 PHOS COMPUTING ARCHITECTS & WAREHOUSING LLC. ALL RIGHTS RESERVED.</p>
+      <p style="color: var(--text-dark); font-size: 0.7rem;">
+        HIGH-PERFORMANCE GAMING RIGS • AI DEEP LEARNING WORKSTATIONS • 50,000 SQ FT ESD LOGISTICS
+      </p>
+    </div>
+  </footer>
+
+  <!-- Standalone Interactive Script -->
+  <script src="js/main.js"></script>
+</body>
 </html>

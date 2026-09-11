@@ -1,6 +1,6 @@
 node_modules/
-.system_generated/
-*.log
-.DS_Store
+.vite/
 dist/
 backup_vanilla/
+*.log
+.DS_Store
